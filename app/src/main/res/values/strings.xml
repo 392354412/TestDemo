@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TestDemo</string>
+    <string name="str_no_network">无网络链接</string>
+    <string name="str_mvp_title">MVP模式</string>
+</resources>
