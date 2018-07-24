@@ -40,7 +40,6 @@ dependencies {
     compile rootProject.ext.dependencies["rxlifecomponents"]
     compile rootProject.ext.dependencies["dagger"]
     annotationProcessor rootProject.ext.dependencies["dagger-compiler"]
-
     compile rootProject.ext.dependencies["rxjava"]
     compile rootProject.ext.dependencies["rxandroid"]
     compile rootProject.ext.dependencies["rxbinding2"]
@@ -58,10 +57,32 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
     compile rootProject.ext.dependencies["umeng-common"]
     compile rootProject.ext.dependencies["umeng-analytics"]
-
     annotationProcessor rootProject.ext.dependencies["dbflow-processor"]
     compile rootProject.ext.dependencies["dbflow-core"]
     compile rootProject.ext.dependencies["dbflow"]
     compile rootProject.ext.dependencies["dbflow-sqlcipher"]
     testCompile 'junit:junit:4.12'
+    implementation project(':library')
+    implementation project(':pickerview')
+    implementation project(':xrichtext')
+
+    compile 'com.alibaba:fastjson:1.1.45.android'
+
+    //----------com.fanwe.android start----------
+    implementation 'com.github.zj565061763:libcore:f195636c5e'
+    implementation 'com.github.zj565061763:dialog:1.0.15'
+    implementation 'com.github.zj565061763:pulltorefresh:1.0.36'
+    implementation 'com.github.zj565061763:select:1.1.3'
+    implementation 'com.github.zj565061763:span:1.0.10'
+    implementation 'com.github.zj565061763:statelayout:1.0.10'
+    implementation 'com.github.zj565061763:viewpager:1.0.26'
+    implementation 'com.github.zj565061763:player:1.0.6'
+    implementation 'com.github.zj565061763:eventbus:1.0.15'
+    implementation 'com.github.zj565061763:title:1.0.3'
+    implementation 'com.github.zj565061763:cache:1.0.20'
+    implementation 'com.github.zj565061763:webview:1.0.0'
+    implementation 'com.github.zj565061763:adapter:1.0.3'
+    implementation 'com.github.zj565061763:poper:1.0.35'
+
+    //----------com.fanwe.android end----------
 }
