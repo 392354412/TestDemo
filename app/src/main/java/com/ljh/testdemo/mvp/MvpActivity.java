@@ -1,8 +1,10 @@
 package com.ljh.testdemo.mvp;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ljh.testdemo.R;
 import com.ljh.testdemo.base.BaseActivity;
@@ -21,17 +23,34 @@ public class MvpActivity extends BaseActivity<MvpPresenter> implements IMvpContr
     Button btnLoad;
     @BindView(R.id.btn_refresh)
     Button btnRefresh;
-
+    private static final String TAG = "MvpActivity";
     @Override
     protected int getLayoutId()
     {
         return R.layout.act_mvp;
     }
-
     @Override
     protected void initView()
     {
 
+        btnRefresh.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                try
+                {
+                    if(mPresenter == null)
+                    {
+                        Log.i(TAG, "onClick: mPresenter == null");
+                    }
+                    mPresenter.refresh();
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
@@ -40,11 +59,20 @@ public class MvpActivity extends BaseActivity<MvpPresenter> implements IMvpContr
         super.showLoading();
     }
 
+    @Override
+    protected void initInjector()
+    {
+        mActivityComponent.inject(this);
+    }
+
 
     @Override
     public void setTitle(String title)
     {
-        tvTitle.setText(title);
+
+//        tvTitle.setText(title);
+        Log.d("TAG",title);
+        Toast.makeText(this,title,Toast.LENGTH_SHORT).show();
     }
 
     @OnClick({R.id.btn_load, R.id.btn_refresh})

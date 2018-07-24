@@ -6,63 +6,30 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.ljh.testdemo.R;
-import com.ljh.testdemo.di.component.ActivityComponent;
-import com.ljh.testdemo.di.component.DaggerActivityComponent;
-import com.ljh.testdemo.di.module.ActivityModule;
-
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
- * 基类Act，实现P、V基类接口
+ * Created by ljh on 2018/7/21.
  */
-public abstract class BaseActivity<T extends IBaseContract.IBasePresenter> extends AppCompatActivity implements IBaseContract.IBaseView
-{
-    @Nullable //可以为null，便于无需MVP模式的Act继承
-    @Inject
-    protected T mPresenter;
-    protected ActivityComponent mActivityComponent;
 
+public abstract class FBaseActivity<T extends IBaseContract.IBasePresenter> extends AppCompatActivity implements IBaseContract.IBaseView
+{
+    protected T mPresenter;
     protected abstract int getLayoutId();
     protected abstract void initView();
-    private Unbinder mBind;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        initActivityComponent();
         int layoutId = getLayoutId();
         setContentView(layoutId);
-        initInjector();
-        mBind = ButterKnife.bind(this);
+        ButterKnife.bind(this);
+        initPresenter();
         attachView();
         initView();
     }
-    /**
-     * 初始化ActivityComponent
-     */
-    private void initActivityComponent() {
-        mActivityComponent = DaggerActivityComponent.builder()
-                .applicationComponent(((App) getApplication()).getApplicationComponent())
-                .activityModule(new ActivityModule(this))
-                .build();
-    }
-    @Override
-    public void showLoading()
-    {
-
-    }
-
-    @Override
-    public void hideLoading()
-    {
-
-    }
-
-    protected abstract void initInjector();
-
+    protected abstract void initPresenter();
     @Override
     public void showSuccess(String msg)
     {
@@ -82,17 +49,10 @@ public abstract class BaseActivity<T extends IBaseContract.IBasePresenter> exten
     }
 
     @Override
-    public void onRetry()
-    {
-
-    }
-
-    @Override
     protected void onDestroy()
     {
         super.onDestroy();
         detachView();
-        mBind.unbind();
     }
 
     /**
